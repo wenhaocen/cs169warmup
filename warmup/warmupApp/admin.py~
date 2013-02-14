@@ -1,0 +1,14 @@
+from django.db import models
+
+# Create your models here.
+class User(models.Model):
+	userName = models.TextField(max_length=128, primary_key=True, blank=False)
+	password = models.TextField()
+	count = models.IntegerField()
+	
+	def __unicode__(self):
+		return str((self.userName, self.password, self.count))
+	def isNewUser(self):
+		if self.count>0:
+			return False
+		return True
