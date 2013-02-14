@@ -93,9 +93,11 @@ ROOT_URLCONF = 'warmup.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'warmup.wsgi.application'
-
+import os
+path = os.getcwd()
 TEMPLATE_DIRS = (
-    "/home/ubuntu/Documents/Dev/warmup/templates/"
+    path+"/../templates/"
+    #"/home/ubuntu/Documents/Dev/warmup/templates/"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
