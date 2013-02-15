@@ -22,6 +22,7 @@ class RestTestCase(unittest.TestCase):
     
     # Lookup the name of the server to test
     serverToTest = "sheltered-wave-4048.herokuapp.com"
+    #serverToTest = "localhost:8000"
     if "TEST_SERVER" in os.environ:
         serverToTest = os.environ["TEST_SERVER"]
 
