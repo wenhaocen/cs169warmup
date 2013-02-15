@@ -1,3 +1,7 @@
+import os
+import sys
+sys.path.append('/home/ubuntu/Documents/Dev/warmup')
+os.environ['DJANGO_SETTINGS_MODULE'] = "warmup.settings"
 """
 This file demonstrates writing tests using the unittest module. These will pass
 when you run "manage.py test".

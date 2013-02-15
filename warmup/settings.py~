@@ -7,11 +7,22 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-import dj_database_url
-DATABASES = {
-    'default': dj_database_url.config()
-}
+#import dj_database_url
 
+#DATABASES = {
+ #   'default': dj_database_url.config()
+#}
+DATABASES = {
+	'default' :{
+	'ENGINE': 'django.db.backends.postgresql_psycopg2',
+	'NAME': 'postgres',
+	'USER': 'postgres',
+	'PASSWORD':'postgres',
+	'HOST':'',
+	'PORT':'',
+	}
+
+}
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -96,8 +107,8 @@ WSGI_APPLICATION = 'warmup.wsgi.application'
 import os
 path = os.getcwd()
 TEMPLATE_DIRS = (
-    "/app/templates"
-    #"/home/ubuntu/Documents/Dev/warmup/templates/"
+    #"/app/templates"
+    "/home/ubuntu/Documents/Dev/warmup/templates/"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

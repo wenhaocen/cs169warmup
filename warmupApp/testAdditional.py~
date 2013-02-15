@@ -7,7 +7,7 @@ import os
 import testLib
 
         
-class TestAmibition(testLib.RestTestCase):
+class TestAmbition(testLib.RestTestCase):
     """Test adding users"""
     def assertResponse(self, respData, count = None, errCode = testLib.RestTestCase.SUCCESS):
         """
