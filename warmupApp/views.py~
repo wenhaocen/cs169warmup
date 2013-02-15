@@ -17,6 +17,9 @@ import models
 import cgi
 import tempfile
 import traceback
+import StringIO
+import unittest
+from testAdditional import TestAmbition
 g_user = models.User()
 
 
@@ -38,8 +41,13 @@ def index(request):
 		else:
 			raise Http404
 	elif request.method=="GET":
-		if request.path not in ["/client.html","/client.css","/client.js"]:
-			raise Http404
+		if request.path == "/TESTAPI/unitTests":
+			buf = StringIO.StringIO()
+			suite = unittest.TESTLoader().loadTestsFromTestCase(TestAmibition)
+			result = unittest.TextTestRunner(stream = buf, verbosity=2).run(suite)
+			return HttpResponse(json.dumps({'totalTests': result.testsRun ,  'nrFailed': len(result.failures), 'output':buf.getvalue()}),content_type="application/json" )
+		elif request.path not in ["/client.html","/client.css","/client.js"]:
+			return 
 		else:
 			mimeType="text/html"
 			if request.path.endswith(".css"):
@@ -54,57 +62,10 @@ def TESTController(request):
 		g_user.TESTAPI_resetFixture()
 		return HttpResponse(json.dumps({'errCode': SUCCESS}),content_type="application/json" )
 	elif request.path== "/TESTAPI/unitTests":
-	    (ofile, ofileName) = tempfile.mkstemp(prefix="userCounter")
-            try:
-                errMsg = ""     # We accumulate here error messages
-                output = ""     # Some default values
-                totalTests = 0
-                nrFailed   = 0
-                while True:  # Give us a way to break
-                    # Find the path to the server installation
-                    thisDir = os.path.dirname(os.path.abspath(__file__))
-                    cmd = "make -C "+thisDir+" unit_tests >"+ofileName+" 2>&1"
-                    print "Executing "+cmd
-                    code = os.system(cmd)
-                    if code != 0:
-                        # There was some error running the tests.
-                        # This happens even if we just have some failing tests
-                        errMsg = "Error running command (code="+str(code)+"): "+cmd+"\n"
-                        # Continue to get the output, and to parse it
-                        
-                    # Now get the output
-                    try:
-                        ofileFile = open(ofileName, "r")
-                        output = ofileFile.read()
-                        ofileFile.close ()
-                    except:
-                        errMsg += "Error reading the output "+traceback.format_exc()
-                        # No point in continuing
-                        break
-                    
-                    print "Got "+output
-                    # Python unittest prints a line like the following line at the end
-                    # Ran 4 tests in 0.001s
-                    m = re.search(r'Ran (\d+) tests', output)
-                    if not m:
-                        errMsg += "Cannot extract the number of tests\n"
-                        break
-                    totalTests = int(m.group(1))
-                    # If there are failures, we will see a line like the following
-                    # FAILED (failures=1)
-                    m = re.search('rFAILED.*\(failures=(\d+)\)', output)
-                    if m:
-                        nrFailures = int(m.group(1))
-                    break # Exit while
-
-                # End while
-                resp = { 'output' : errMsg + output,
-                         'totalTests' : totalTests,
-                         'nrFailed' : nrFailed }
-		return HttpResponse(json.dumps(resp),content_type="application/json" )
-            finally:
-                os.unlink(ofileName)
-                
+		buf = StringIO.StringIO()
+		suite = unittest.TESTLoader().loadTestsFromTestCase(TestAmibition)
+		result = unittest.TextTestRunner(stream = buf, verbosity=2).run(suite)
+		return HttpResponse(json.dumps({'totalTests': result.testsRun ,  'nrFailed': len(result.failures), 'output':buf.getvalue()}),content_type="application/json" )
             
         else:
             raise Http404

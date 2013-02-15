@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'warmup.wsgi.application'
 import os
 path = os.getcwd()
 TEMPLATE_DIRS = (
-    path+"/../templates/"
+    "/app/templates"
     #"/home/ubuntu/Documents/Dev/warmup/templates/"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
