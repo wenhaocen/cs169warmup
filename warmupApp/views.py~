@@ -41,6 +41,9 @@ def index(request):
 		else:
 			raise Http404
 	elif request.method=="GET":
+		if request.path=="/TESTAPI/resetFixture":
+			g_user.TESTAPI_resetFixture()
+			return HttpResponse(json.dumps({'errCode': SUCCESS}),content_type="application/json" )
 		if request.path == "/TESTAPI/unitTests":
 			buf = StringIO.StringIO()
 			suite = unittest.TestLoader().loadTestsFromTestCase(TestAmbition)
