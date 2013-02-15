@@ -43,7 +43,7 @@ def index(request):
 	elif request.method=="GET":
 		if request.path == "/TESTAPI/unitTests":
 			buf = StringIO.StringIO()
-			suite = unittest.TestLoader().loadTestsFromTestCase(TestAmibition)
+			suite = unittest.TestLoader().loadTestsFromTestCase(TestAmbition)
 			result = unittest.TextTestRunner(stream = buf, verbosity=2).run(suite)
 			return HttpResponse(json.dumps({'totalTests': result.testsRun ,  'nrFailed': len(result.failures), 'output':buf.getvalue()}),content_type="application/json" )
 		elif request.path not in ["/client.html","/client.css","/client.js"]:
