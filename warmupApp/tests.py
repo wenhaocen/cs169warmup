@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append('/app/warmup')
+sys.path.append('/app')
 os.environ['DJANGO_SETTINGS_MODULE'] = "warmup.settings"
 """
 This file demonstrates writing tests using the unittest module. These will pass
