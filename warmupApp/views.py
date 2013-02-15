@@ -47,7 +47,7 @@ def index(request):
 			result = unittest.TextTestRunner(stream = buf, verbosity=2).run(suite)
 			return HttpResponse(json.dumps({'totalTests': result.testsRun ,  'nrFailed': len(result.failures), 'output':buf.getvalue()}),content_type="application/json" )
 		elif request.path not in ["/client.html","/client.css","/client.js"]:
-			return 
+			raise Http404
 		else:
 			mimeType="text/html"
 			if request.path.endswith(".css"):
