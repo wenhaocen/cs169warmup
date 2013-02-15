@@ -56,11 +56,11 @@ class TestAmbition(testLib.RestTestCase):
 	respData = self.makeRequest("/users/add", method="POST", data={'user':'wenhaocen', 'password': ''})
 	respData = self.makeRequest("/users/login", method="POST", data={'user':'wenhaocen','password':''})
 	self.assertResponse(respData, count=2,errCode = testLib.RestTestCase.SUCCESS)
-    #Do a add user and then login regularly. should return success.
+    #Do a add user with empty password, and then login with some password, should return bad credentials
     def testLogin5(self):
 	respData = self.makeRequest("/users/add", method="POST", data={'user':'wenhaocen', 'password': ''})
-	respData = self.makeRequest("/users/login", method="POST", data={'user':'wenhaocen','password':''})
-	self.assertResponse(respData, count=2,errCode = testLib.RestTestCase.SUCCESS)
+	respData = self.makeRequest("/users/login", method="POST", data={'user':'wenhaocen','password':'123'})
+	self.assertResponse(respData, errCode = testLib.RestTestCase.ERR_BAD_CREDENTIALS)
 	
 	
     
