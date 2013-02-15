@@ -47,7 +47,7 @@ class RestTestCase(unittest.TestCase):
                 print "Cannot connect to the server "+RestTestCase.serverToTest+". You should start the server first, or pass the proper TEST_SERVER environment variable"
                 sys.exit(1)
             raise
-
+	self.conn.sock.settimeout(100.0)
         resp = self.conn.getresponse()
         data_string = "<unknown"
         try:
@@ -76,7 +76,7 @@ class RestTestCase(unittest.TestCase):
 
         
     def setUp(self):
-        self.conn = httplib.HTTPConnection(RestTestCase.serverToTest, timeout=100)
+        self.conn = httplib.HTTPConnection(RestTestCase.serverToTest, timeout=1)
         self.makeRequest("/TESTAPI/resetFixture", method="POST")
         
     def tearDown(self):

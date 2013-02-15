@@ -20,8 +20,6 @@ import traceback
 import StringIO
 import unittest
 from testAdditional import TestAmbition
-sys.path.append('/home/ubuntu/Documents/Dev/warmup')
-os.environ['TEST_SERVER'] = "sheltered-wave-4048.herokuapp.com"
 g_user = models.User()
 
 
